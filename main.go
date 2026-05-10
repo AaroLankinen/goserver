@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -11,8 +12,11 @@ func main() {
 	m := http.NewServeMux()
 
 	m.HandleFunc("/", handlePage)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8010"
+	}
 
-	const port = "8010"
 	srv := http.Server{
 		Handler:      m,
 		Addr:         ":" + port,
